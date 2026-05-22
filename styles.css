@@ -296,4 +296,56 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);fon
   }
 }
 
+/* ═══ NEBULA LOGO ═══ */
+.nebula-logo-container {
+  position: fixed;
+  top: 1.8rem;
+  left: 2.2rem;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+}
+
+.nebula-logo {
+  height: 52px;
+  width: auto;
+  opacity: 0.85;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.4));
+  cursor: pointer;
+}
+
+.nebula-logo:hover {
+  opacity: 1;
+  transform: scale(1.05);
+  filter: drop-shadow(0 0 15px rgba(139, 92, 246, 0.4)) drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
+}
+
+@media(max-width: 1024px) {
+  .nebula-logo-container {
+    top: 1.5rem;
+    left: 1.8rem;
+  }
+  .nebula-logo {
+    height: 44px;
+  }
+}
+
+@media(max-width: 768px) {
+  .nebula-logo-container {
+    top: 1.2rem;
+    left: 1.5rem;
+  }
+  .nebula-logo {
+    height: 36px;
+  }
+}
+
+@media(max-width: 480px) {
+  .nebula-logo-container {
+    display: none; /* Hide on small screens to prevent overlap with slide headers */
+  }
+}
+
+
 

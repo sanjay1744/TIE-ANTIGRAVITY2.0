@@ -14,6 +14,54 @@
 <canvas id="bgCanvas"></canvas>
 <div class="ambient-orb orb-1"></div><div class="ambient-orb orb-2"></div>
 <div class="ambient-orb orb-3"></div><div class="ambient-orb orb-4"></div>
+<div class="bg-logo-container">
+  <svg class="bg-logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 220">
+    <defs>
+      <linearGradient id="g-blue" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#4285F4" />
+        <stop offset="100%" stop-color="#1a73e8" />
+      </linearGradient>
+      <linearGradient id="g-red" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#EA4335" />
+        <stop offset="100%" stop-color="#d93025" />
+      </linearGradient>
+      <linearGradient id="g-yellow" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#FBBC05" />
+        <stop offset="100%" stop-color="#f9ab00" />
+      </linearGradient>
+      <linearGradient id="g-green" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#34A853" />
+        <stop offset="100%" stop-color="#188038" />
+      </linearGradient>
+      <filter id="neon-glow" x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur stdDeviation="6" result="blur1" />
+        <feGaussianBlur stdDeviation="15" result="blur2" />
+        <feMerge>
+          <feMergeNode in="blur2" />
+          <feMergeNode in="blur1" />
+          <feMergeNode in="SourceGraphic" />
+        </feMerge>
+      </filter>
+    </defs>
+    <g class="orbit-rings">
+      <circle cx="100" cy="100" r="85" fill="none" stroke="rgba(255, 255, 255, 0.05)" stroke-width="1" stroke-dasharray="8 12" />
+      <ellipse cx="100" cy="100" rx="80" ry="32" fill="none" stroke="rgba(66, 133, 244, 0.12)" stroke-width="1.5" transform="rotate(-25 100 100)" />
+      <circle cx="172" cy="68" r="3" fill="#4285F4" filter="url(#neon-glow)" />
+      <ellipse cx="100" cy="100" rx="72" ry="24" fill="none" stroke="rgba(234, 67, 53, 0.12)" stroke-width="1.5" transform="rotate(35 100 100)" />
+      <circle cx="41" cy="120" r="3.5" fill="#EA4335" filter="url(#neon-glow)" />
+    </g>
+    <g class="logo-core" filter="url(#neon-glow)">
+      <path d="M 73 73 A 38 38 0 0 1 127 73" fill="none" stroke="url(#g-red)" stroke-width="9" stroke-linecap="round" />
+      <path d="M 73 127 A 38 38 0 0 1 73 73" fill="none" stroke="url(#g-yellow)" stroke-width="9" stroke-linecap="round" />
+      <path d="M 127 127 A 38 38 0 0 1 73 127" fill="none" stroke="url(#g-green)" stroke-width="9" stroke-linecap="round" />
+      <path d="M 100 100 H 138 A 38 38 0 0 1 127 127" fill="none" stroke="url(#g-blue)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" />
+    </g>
+    <circle cx="95" cy="85" r="1.5" fill="#FFF" opacity="0.7" />
+    <circle cx="115" cy="115" r="2" fill="#4285F4" opacity="0.5" />
+    <circle cx="85" cy="110" r="1" fill="#EA4335" opacity="0.6" />
+    <text x="100" y="195" class="logo-text" text-anchor="middle" fill="#9aa0a6" font-family="'JetBrains Mono', monospace" font-size="9" letter-spacing="4">GOOGLE ANTIGRAVITY</text>
+  </svg>
+</div>
 <div class="progress-bar" id="progressBar"></div>
 <div class="slide-counter" id="slideCounter"></div>
 <button class="fs-btn" title="Fullscreen (F)">⛶</button>

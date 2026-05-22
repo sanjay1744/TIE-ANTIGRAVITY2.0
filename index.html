@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Antigravity 2.0</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+  /* Extra adjustments for 25 slides */
+  .slide{padding:2rem 4rem} /* slightly tighter padding to fit content */
+  .full-layout{align-items:center}
+</style>
+</head>
+<body>
+<canvas id="bgCanvas"></canvas>
+<div class="ambient-orb orb-1"></div><div class="ambient-orb orb-2"></div>
+<div class="ambient-orb orb-3"></div><div class="ambient-orb orb-4"></div>
+<div class="progress-bar" id="progressBar"></div>
+<div class="slide-counter" id="slideCounter"></div>
+<button class="fs-btn" title="Fullscreen (F)">⛶</button>
+<div class="nav-dots" id="navDots"></div>
+<div class="key-hints"><span class="key">↑↓</span><span class="key">Space</span><span class="key">F</span></div>
+
+<div class="deck">
+
+<!-- 1: AI Models -->
+<div class="slide"><div class="full-layout" style="max-width:1100px;width:100%">
+  <div class="col-text">
+    <div class="section-label" data-anim="fadeUp">Slide 1</div>
+    <h2 class="slide-title" data-anim="fadeUp" data-delay="100" style="font-size:clamp(1.8rem,3.5vw,3rem)">What are AI Models?</h2>
+    <p class="slide-subtitle" data-anim="fadeUp" data-delay="200">AI models are trained systems that learn patterns from large amounts of data.</p>
+    <h4 data-anim="fadeUp" data-delay="300" style="color:var(--cyan);margin:1.2rem 0 .4rem;font-size:.95rem">Purpose - They help machines:</h4>
+    <ul class="list" data-anim="fadeUp" data-delay="400"><li>Predict outputs</li><li>Understand inputs</li><li>Generate responses</li><li>Perform intelligent tasks</li></ul>
+    <h4 data-anim="fadeUp" data-delay="500" style="color:var(--violet);margin:1.2rem 0 .4rem;font-size:.95rem">Types of AI Models</h4>
+    <ul class="list" data-anim="fadeUp" data-delay="600"><li>Text, Image, Audio, Video, Multimodal models</li></ul>
+    <p data-anim="fadeUp" data-delay="700" style="color:var(--muted);font-size:.88rem;margin-top:.8rem"><strong style="color:var(--yellow)">Examples:</strong> GPT · Gemini · Claude · Llama</p>
+  </div>
+  <div class="col-visual" data-anim="slideR" data-delay="300"><img src="images/ai_models.png" class="slide-img img-glow" alt="AI Models"></div>
+</div></div>
+
+<!-- 2: LLMs -->
+<div class="slide"><div class="full-layout" style="max-width:1100px;width:100%">
+  <div class="col-visual" data-anim="slideL" data-delay="200"><img src="images/llm_visual.png" class="slide-img img-glow" alt="LLMs"></div>
+  <div class="col-text">
+    <div class="section-label" data-anim="fadeUp">Slide 2</div>
+    <h2 class="slide-title" data-anim="fadeUp" data-delay="100" style="font-size:clamp(1.8rem,3.5vw,3rem)">What are LLMs?</h2>
+    <p class="slide-subtitle" data-anim="fadeUp" data-delay="200">LLM = Large Language Model<br>LLMs are advanced AI models trained on massive text datasets to understand and generate human language.</p>
+    <h4 data-anim="fadeUp" data-delay="300" style="color:var(--cyan);margin:1.2rem 0 .4rem;font-size:.95rem">Capabilities</h4>
+    <ul class="list" data-anim="fadeUp" data-delay="400"><li>Answer questions &amp; Generate code</li><li>Summarize content &amp; Translate languages</li><li>Assist in problem solving</li></ul>
+    <p data-anim="fadeUp" data-delay="500" style="color:var(--muted);font-size:.88rem;margin-top:.8rem"><strong style="color:var(--violet)">Popular LLMs:</strong> GPT · Claude · Gemini · DeepSeek · Llama</p>
+    <p data-anim="fadeUp" data-delay="600" style="color:var(--red);font-size:.85rem;margin-top:.8rem;font-style:italic">Limitation: LLMs mainly respond to prompts but do not independently execute complex workflows.</p>
+  </div>
+</div></div>
+
+<!-- 3: AI Agents -->
+<div class="slide"><div class="full-layout" style="max-width:1100px;width:100%">
+  <div class="col-text">
+    <div class="section-label" data-anim="fadeUp">Slide 3</div>
+    <h2 class="slide-title" data-anim="fadeUp" data-delay="100" style="font-size:clamp(1.8rem,3.5vw,3rem)">What are AI Agents?</h2>
+    <p class="slide-subtitle" data-anim="fadeUp" data-delay="200">AI Agents are intelligent systems that can understand goals, make decisions, use tools, and execute tasks autonomously.</p>
+    <h4 data-anim="fadeUp" data-delay="300" style="color:var(--cyan);margin:1.2rem 0 .4rem;font-size:.95rem">Unlike Traditional LLMs, Agents Can:</h4>
+    <ul class="list" data-anim="fadeUp" data-delay="400"><li>Perform actions</li><li>Use external systems</li><li>Coordinate workflows</li><li>Operate with memory and context</li></ul>
+    <p data-anim="fadeUp" data-delay="500" style="color:var(--muted);font-size:.88rem;margin-top:.8rem"><strong style="color:var(--yellow)">Examples:</strong> Autonomous coding agents · Research agents · Workflow automation agents · AI copilots</p>
+  </div>
+  <div class="col-visual" data-anim="slideR" data-delay="300"><img src="images/ai_agents.png" class="slide-img img-glow" alt="AI Agents"></div>
+</div></div>
+
+<!-- 4: What is Antigravity 2.0? -->
+<div class="slide"><div class="full-layout" style="max-width:1100px;width:100%">
+  <div class="col-visual" data-anim="slideL" data-delay="200"><img src="images/platform_intro.png" class="slide-img img-glow" alt="Platform"></div>
+  <div class="col-text">
+    <div class="section-label" data-anim="fadeUp">Slide 4</div>
+    <h2 class="slide-title gradient-text" data-anim="fadeUp" data-delay="100" style="font-size:clamp(1.8rem,3.5vw,3rem)">What is Antigravity 2.0?</h2>
+    <p class="slide-subtitle" data-anim="fadeUp" data-delay="200">Antigravity 2.0 is a standalone AI agent platform designed to manage and orchestrate autonomous AI agents for coding, research, automation, and complex workflows.</p>
+    <h4 data-anim="fadeUp" data-delay="300" style="color:var(--cyan);margin:1.2rem 0 .4rem;font-size:.95rem">Key Highlights</h4>
+    <ul class="list" data-anim="fadeUp" data-delay="400">
+      <li>Centralized AI agent workspace</li>
+      <li>Parallel autonomous agent execution</li>
+      <li>Deep integration with tools and systems</li>
+      <li>Built for developers and AI workflows</li>
+      <li>Supports customization through MCPs, Skills, and Plugins</li>
+    </ul>
+  </div>
+</div></div>
+
+<!-- 5: Vision -->
+<div class="slide"><div class="full-layout" style="max-width:1100px;width:100%">
+  <div class="col-text">
+    <div class="section-label" data-anim="fadeUp">Slide 5</div>
+    <h2 class="slide-title" data-anim="fadeUp" data-delay="100" style="font-size:clamp(1.8rem,3.5vw,3rem)">Vision of Antigravity 2.0</h2>
+    <h4 data-anim="fadeUp" data-delay="200" style="color:var(--violet);margin:1.2rem 0 .4rem;font-size:.95rem">Goal</h4>
+    <p class="slide-subtitle" data-anim="fadeUp" data-delay="300">To create an agent-first environment where AI systems can:</p>
+    <ul class="list" data-anim="fadeUp" data-delay="400">
+      <li>Think independently</li>
+      <li>Work simultaneously</li>
+      <li>Coordinate tasks &amp; Automate workflows</li>
+      <li>Deliver actionable outputs</li>
+    </ul>
+    <h4 data-anim="fadeUp" data-delay="500" style="color:var(--cyan);margin:1.2rem 0 .4rem;font-size:.95rem">Core Idea</h4>
+    <blockquote data-anim="fadeUp" data-delay="600" class="quote-text" style="font-size:1.6rem;text-align:left;padding-left:1rem;border-left:4px solid var(--violet)">“Humans define goals. Agents execute intelligently.”</blockquote>
+  </div>
+  <div class="col-visual" data-anim="slideR" data-delay="300"><img src="images/vision_visual.png" class="slide-img img-glow" alt="Vision"></div>
+</div></div>
+
+<!-- 6: Command Center -->
+<div class="slide"><div class="full-layout" style="max-width:1100px;width:100%">
+  <div class="col-visual" data-anim="slideL" data-delay="200"><img src="images/command_center.png" class="slide-img img-glow" alt="Command Center"></div>
+  <div class="col-text">
+    <div class="section-label" data-anim="fadeUp">Slide 6</div>
+    <h2 class="slide-title" data-anim="fadeUp" data-delay="100" style="font-size:clamp(1.8rem,3.5vw,3rem)">Command Center</h2>
+    <p class="slide-subtitle" data-anim="fadeUp" data-delay="200">The Command Center is the main orchestration interface of Antigravity 2.0.</p>
+    <h4 data-anim="fadeUp" data-delay="300" style="color:var(--cyan);margin:1.2rem 0 .4rem;font-size:.95rem">Features</h4>
+    <ul class="list" data-anim="fadeUp" data-delay="400">
+      <li>Launch multiple AI agents</li>
+      <li>Monitor running tasks &amp; Track outputs</li>
+      <li>Manage workflows centrally</li>
+      <li>Coordinate complex operations</li>
+    </ul>
+    <h4 data-anim="fadeUp" data-delay="500" style="color:var(--violet);margin:1.2rem 0 .4rem;font-size:.95rem">Benefits</h4>
+    <p data-anim="fadeUp" data-delay="600" style="color:var(--muted);font-size:.88rem">Better visibility · Faster execution · Organized AI management</p>
+  </div>
+</div></div>
+
+<!-- 7: Subagents -->
+<div class="slide"><div class="full-layout" style="max-width:1100px;width:100%">
+  <div class="col-visual" data-anim="slideL" data-delay="200"><img src="images/subagents.png" class="slide-img img-glow" alt="Subagents"></div>
+  <div class="col-text">
+    <div class="section-label" data-anim="fadeUp">Slide 7</div>
+    <h2 class="slide-title" data-anim="fadeUp" data-delay="100" style="font-size:clamp(1.8rem,3.5vw,3rem)">Dynamic Subagents</h2>
+    <p class="slide-subtitle" data-anim="fadeUp" data-delay="200">Subagents are smaller AI workers created dynamically for parallel execution.</p>
+    <h4 data-anim="fadeUp" data-delay="300" style="color:var(--cyan);margin:1.2rem 0 .4rem;font-size:.95rem">How They Work</h4>
+    <ul class="list" data-anim="fadeUp" data-delay="400">
+      <li>Main agent splits a complex task</li>
+      <li>Multiple subagents handle different parts</li>
+      <li>Results are combined automatically</li>
+    </ul>
+    <h4 data-anim="fadeUp" data-delay="500" style="color:var(--violet);margin:1.2rem 0 .4rem;font-size:.95rem">Advantages</h4>
+    <p data-anim="fadeUp" data-delay="600" style="color:var(--muted);font-size:.88rem">Faster processing · Parallel problem solving · Better scalability · Improved task specialization</p>
+  </div>
+</div></div>
+
+<!-- 8: MCP -->
+<div class="slide"><div class="full-layout" style="max-width:1100px;width:100%">
+  <div class="col-text">
+    <div class="section-label" data-anim="fadeUp">Slide 8</div>
+    <h2 class="slide-title" data-anim="fadeUp" data-delay="100" style="font-size:clamp(1.8rem,3.5vw,3rem)">MCP Integration</h2>
+    <p class="slide-subtitle" data-anim="fadeUp" data-delay="200">MCP allows Antigravity to connect with external tools, APIs, and systems.</p>
+    <h4 data-anim="fadeUp" data-delay="300" style="color:var(--cyan);margin:1.2rem 0 .4rem;font-size:.95rem">MCP Features</h4>
+    <ul class="list" data-anim="fadeUp" data-delay="400">
+      <li>Standardized communication layer</li>
+      <li>Tool integration support</li>
+      <li>External service connectivity</li>
+      <li>Real-time data access</li>
+    </ul>
+    <h4 data-anim="fadeUp" data-delay="500" style="color:var(--violet);margin:1.2rem 0 .4rem;font-size:.95rem">Examples</h4>
+    <p data-anim="fadeUp" data-delay="600" style="color:var(--muted);font-size:.88rem">Weather APIs · Database systems · Internal enterprise tools · Browser automation tools</p>
+  </div>
+  <div class="col-visual" data-anim="slideR" data-delay="300"><img src="images/mcp_integration.png" class="slide-img img-glow" alt="MCP"></div>
+</div></div>
+
+<!-- 9: Skills System -->
+<div class="slide"><div class="full-layout" style="max-width:1100px;width:100%">
+  <div class="col-visual" data-anim="slideL" data-delay="200"><img src="images/skills_system.png" class="slide-img img-glow" alt="Skills"></div>
+  <div class="col-text">
+    <div class="section-label" data-anim="fadeUp">Slide 9</div>
+    <h2 class="slide-title" data-anim="fadeUp" data-delay="100" style="font-size:clamp(1.8rem,3.5vw,3rem)">Skills System</h2>
+    <p class="slide-subtitle" data-anim="fadeUp" data-delay="200">Skills are reusable AI capabilities that extend agent intelligence.</p>
+    <h4 data-anim="fadeUp" data-delay="300" style="color:var(--cyan);margin:1.2rem 0 .4rem;font-size:.95rem">Skills Can:</h4>
+    <ul class="list" data-anim="fadeUp" data-delay="400">
+      <li>Add domain-specific knowledge</li>
+      <li>Automate repetitive workflows</li>
+      <li>Enable custom operations</li>
+      <li>Improve task accuracy</li>
+    </ul>
+    <h4 data-anim="fadeUp" data-delay="500" style="color:var(--violet);margin:1.2rem 0 .4rem;font-size:.95rem">Examples</h4>
+    <p data-anim="fadeUp" data-delay="600" style="color:var(--muted);font-size:.88rem">UI generation · Documentation writing · Backend automation · Data analysis</p>
+  </div>
+</div></div>
+
+<!-- 10: Custom Skills -->
+<div class="slide"><div class="full-layout" style="max-width:1100px;width:100%">
+  <div class="col-text">
+    <div class="section-label" data-anim="fadeUp">Slide 10</div>
+    <h2 class="slide-title" data-anim="fadeUp" data-delay="100" style="font-size:clamp(1.8rem,3.5vw,3rem)">Custom Skill Creation</h2>
+    <h4 data-anim="fadeUp" data-delay="200" style="color:var(--cyan);margin:1.2rem 0 .4rem;font-size:.95rem">Developers Can Build:</h4>
+    <ul class="list" data-anim="fadeUp" data-delay="300">
+      <li>Personalized AI capabilities</li>
+      <li>Internal company workflows</li>
+      <li>API-connected automations</li>
+      <li>Multi-tool intelligent systems</li>
+    </ul>
+    <h4 data-anim="fadeUp" data-delay="400" style="color:var(--violet);margin:1.2rem 0 .4rem;font-size:.95rem">Skill Structure</h4>
+    <ul class="list" data-anim="fadeUp" data-delay="500">
+      <li>Tool definitions &amp; Input schema</li>
+      <li>Usage instructions &amp; Execution logic</li>
+    </ul>
+    <p data-anim="fadeUp" data-delay="600" style="color:var(--yellow);font-size:.88rem;margin-top:.8rem"><strong>Benefit:</strong> Turns Antigravity into a domain-specific AI platform.</p>
+  </div>
+  <div class="col-visual" data-anim="slideR" data-delay="300"><img src="images/custom_skills.png" class="slide-img img-glow" alt="Custom Skills"></div>
+</div></div>
+
+<!-- 11: Plugins -->
+<div class="slide"><div class="full-layout" style="max-width:1100px;width:100%">
+  <div class="col-visual" data-anim="slideL" data-delay="200"><img src="images/plugin_arch.png" class="slide-img img-glow" alt="Plugins"></div>
+  <div class="col-text">
+    <div class="section-label" data-anim="fadeUp">Slide 11</div>
+    <h2 class="slide-title" data-anim="fadeUp" data-delay="100" style="font-size:clamp(1.8rem,3.5vw,3rem)">Plugin Architecture</h2>
+    <p class="slide-subtitle" data-anim="fadeUp" data-delay="200">Plugins are modular extensions that package: Skills, Rules, MCP configurations, and Hooks.</p>
+    <h4 data-anim="fadeUp" data-delay="300" style="color:var(--cyan);margin:1.2rem 0 .4rem;font-size:.95rem">Purpose</h4>
+    <p data-anim="fadeUp" data-delay="400" style="color:var(--muted);font-size:.88rem">To expand platform functionality without modifying the core system.</p>
+    <h4 data-anim="fadeUp" data-delay="500" style="color:var(--violet);margin:1.2rem 0 .4rem;font-size:.95rem">Advantages</h4>
+    <ul class="list" data-anim="fadeUp" data-delay="600">
+      <li>Modular design</li>
+      <li>Easy installation</li>
+      <li>Reusable components</li>
+      <li>Team-wide sharing</li>
+    </ul>
+  </div>
+</div></div>
+
+<!-- 12: Rules -->
+<div class="slide"><div class="full-layout" style="max-width:1100px;width:100%">
+  <div class="col-text">
+    <div class="section-label" data-anim="fadeUp">Slide 12</div>
+    <h2 class="slide-title" data-anim="fadeUp" data-delay="100" style="font-size:clamp(1.8rem,3.5vw,3rem)">Rules &amp; Behavior Control</h2>
+    <p class="slide-subtitle" data-anim="fadeUp" data-delay="200">Rules define how agents should behave during execution.</p>
+    <h4 data-anim="fadeUp" data-delay="300" style="color:var(--cyan);margin:1.2rem 0 .4rem;font-size:.95rem">Rules Can Control:</h4>
+    <ul class="list" data-anim="fadeUp" data-delay="400">
+      <li>Permissions</li>
+      <li>Safety boundaries</li>
+      <li>Coding standards</li>
+      <li>Workflow policies</li>
+    </ul>
+    <h4 data-anim="fadeUp" data-delay="500" style="color:var(--violet);margin:1.2rem 0 .4rem;font-size:.95rem">Benefits</h4>
+    <p data-anim="fadeUp" data-delay="600" style="color:var(--muted);font-size:.88rem">Consistent outputs · Safer execution · Controlled automation · Team governance</p>
+  </div>
+  <div class="col-visual" data-anim="slideR" data-delay="300"><img src="images/rules_visual.png" class="slide-img img-glow" alt="Rules"></div>
+</div></div>
+
+<!-- 13: Context Input -->
+<div class="slide"><div class="full-layout" style="max-width:1100px;width:100%">
+  <div class="col-visual" data-anim="slideL" data-delay="200"><img src="images/context_system.png" class="slide-img img-glow" alt="Context Input"></div>
+  <div class="col-text">
+    <div class="section-label" data-anim="fadeUp">Slide 13</div>
+    <h2 class="slide-title" data-anim="fadeUp" data-delay="100" style="font-size:clamp(1.8rem,3.5vw,3rem)">Context Input System</h2>
+    <p class="slide-subtitle" data-anim="fadeUp" data-delay="200">Antigravity 2.0 allows users to provide different types of contextual inputs to AI agents.</p>
+    <h4 data-anim="fadeUp" data-delay="300" style="color:var(--cyan);margin:1.2rem 0 .4rem;font-size:.95rem">Available Context Sources</h4>
+    <ul class="list" data-anim="fadeUp" data-delay="400">
+      <li><strong style="color:var(--cyan)">Media:</strong> Add images, files, and multimedia content</li>
+      <li><strong style="color:var(--violet)">Mentions:</strong> Reference agents, tools, or workflows directly</li>
+      <li><strong style="color:var(--pink)">Actions:</strong> Trigger predefined operational tasks</li>
+      <li><strong style="color:var(--green)">Browser:</strong> Enable web access and live information retrieval</li>
+    </ul>
+    <h4 data-anim="fadeUp" data-delay="500" style="color:var(--yellow);margin:1.2rem 0 .4rem;font-size:.95rem">Benefits</h4>
+    <p data-anim="fadeUp" data-delay="600" style="color:var(--muted);font-size:.88rem">Richer understanding · Multi-modal interaction · Better execution · Real-time support</p>
+  </div>
+</div></div>
+
+<!-- 14: Scheduled Tasks -->
+<div class="slide"><div class="full-layout" style="max-width:1100px;width:100%">
+  <div class="col-text">
+    <div class="section-label" data-anim="fadeUp">Slide 14</div>
+    <h2 class="slide-title" data-anim="fadeUp" data-delay="100" style="font-size:clamp(1.8rem,3.5vw,3rem)">Scheduled Tasks</h2>
+    <p class="slide-subtitle" data-anim="fadeUp" data-delay="200">Agents can run automatically based on predefined schedules.</p>
+    <h4 data-anim="fadeUp" data-delay="300" style="color:var(--cyan);margin:1.2rem 0 .4rem;font-size:.95rem">Capabilities</h4>
+    <ul class="list" data-anim="fadeUp" data-delay="400">
+      <li>Cron-based execution</li>
+      <li>Background workflows</li>
+      <li>Routine monitoring</li>
+      <li>Periodic automation</li>
+    </ul>
+    <h4 data-anim="fadeUp" data-delay="500" style="color:var(--violet);margin:1.2rem 0 .4rem;font-size:.95rem">Examples</h4>
+    <p data-anim="fadeUp" data-delay="600" style="color:var(--muted);font-size:.88rem">Daily reports · System checks · Automated testing · Data synchronization</p>
+  </div>
+  <div class="col-visual" data-anim="slideR" data-delay="300"><img src="images/scheduled_tasks.png" class="slide-img img-glow" alt="Scheduled Tasks"></div>
+</div></div>
+
+<!-- 15: Artifacts System -->
+<div class="slide"><div class="full-layout" style="max-width:1100px;width:100%">
+  <div class="col-visual" style="position: relative;" data-anim="slideL" data-delay="200">
+    <div id="videoBackdrop15" class="video-backdrop"></div>
+    <video id="collabVideo" class="slide-video img-glow" src="videos/How to better understand_ follow_ and collaborate with the agent(4K_HD).webm" title="Collaborating with the Agent" muted loop></video>
+    <script>
+    (function() {
+      const video = document.getElementById('collabVideo');
+      const backdrop = document.getElementById('videoBackdrop15');
+      let isZoomed = false;
+
+      video.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const slide = this.closest('.slide');
+        
+        if(!isZoomed) {
+          // Get current dimensions and position before transition
+          const rect = this.getBoundingClientRect();
+          const vw = window.innerWidth;
+          const vh = window.innerHeight;
+          
+          // Calculate target translation & scale (fit screen contain)
+          const videoRatio = rect.width / rect.height;
+          const viewRatio = vw / vh;
+          let targetW, targetH;
+          
+          if (videoRatio > viewRatio) {
+            targetW = vw;
+            targetH = vw / videoRatio;
+          } else {
+            targetH = vh;
+            targetW = vh * videoRatio;
+          }
+          
+          const scale = targetW / rect.width;
+          const tx = (vw / 2) - (rect.left + rect.width / 2);
+          const ty = (vh / 2) - (rect.top + rect.height / 2);
+          
+          // Clear transforms so backdrop is relative to viewport
+          const parent = this.parentElement;
+          parent.style.transform = 'none';
+          slide.style.transform = 'none';
+          slide.style.willChange = 'auto';
+          
+          // Apply changes to slide to bring it to foreground
+          slide.style.zIndex = '99999';
+          slide.style.overflow = 'visible';
+          
+          // Apply styles on video
+          this.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
+          this.classList.add('zoomed');
+          
+          // Show backdrop
+          backdrop.classList.add('active');
+          
+          this.muted = false;
+          this.controls = true;
+          this.play();
+          isZoomed = true;
+        } else {
+          // Shrink back
+          this.style.transform = '';
+          this.classList.remove('zoomed');
+          
+          backdrop.classList.remove('active');
+          
+          this.muted = true;
+          this.controls = false;
+          this.pause();
+          isZoomed = false;
+          
+          // Wait for transition to complete before resetting zIndex and parent transforms
+          setTimeout(() => {
+            if(!isZoomed) {
+              slide.style.zIndex = '';
+              slide.style.overflow = '';
+              const parent = video.parentElement;
+              parent.style.transform = '';
+              slide.style.transform = '';
+              slide.style.willChange = '';
+            }
+          }, 600);
+        }
+      });
+      
+      // Also close when clicking the backdrop
+      backdrop.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if(isZoomed) {
+          video.click();
+        }
+      });
+    })();
+    </script>
+  </div>
+  <div class="col-text">
+    <div class="section-label" data-anim="fadeUp">Slide 15</div>
+    <h2 class="slide-title" data-anim="fadeUp" data-delay="100" style="font-size:clamp(1.8rem,3.5vw,3rem)">Artifacts System</h2>
+    <p class="slide-subtitle" data-anim="fadeUp" data-delay="200">Artifacts are outputs generated by AI agents.</p>
+    <h4 data-anim="fadeUp" data-delay="300" style="color:var(--cyan);margin:1.2rem 0 .4rem;font-size:.95rem">Types of Artifacts</h4>
+    <ul class="list" data-anim="fadeUp" data-delay="400">
+      <li>Reports</li>
+      <li>Documents</li>
+      <li>Plans</li>
+      <li>Code files</li>
+      <li>Analysis summaries</li>
+    </ul>
+    <p data-anim="fadeUp" data-delay="500" style="color:var(--yellow);font-size:.88rem;margin-top:.8rem"><strong>Importance:</strong> Provides transparency into agent progress and deliverables.</p>
+  </div>
+</div></div>
+
+<!-- 16: Workspaces -->
+<div class="slide"><div class="full-layout" style="max-width:1100px;width:100%">
+  <div class="col-text">
+    <div class="section-label" data-anim="fadeUp">Slide 16</div>
+    <h2 class="slide-title" data-anim="fadeUp" data-delay="100" style="font-size:clamp(1.8rem,3.5vw,3rem)">Project Management</h2>
+    <p class="slide-subtitle" data-anim="fadeUp" data-delay="200">Antigravity supports structured workspace management.</p>
+    <h4 data-anim="fadeUp" data-delay="300" style="color:var(--cyan);margin:1.2rem 0 .4rem;font-size:.95rem">Features</h4>
+    <ul class="list" data-anim="fadeUp" data-delay="400">
+      <li>Multiple project handling</li>
+      <li>Folder organization</li>
+      <li>Scoped permissions</li>
+      <li>Workspace-specific configurations</li>
+    </ul>
+    <h4 data-anim="fadeUp" data-delay="500" style="color:var(--violet);margin:1.2rem 0 .4rem;font-size:.95rem">Benefits</h4>
+    <p data-anim="fadeUp" data-delay="600" style="color:var(--muted);font-size:.88rem">Better collaboration · Cleaner workflows · Isolated environments · Easier management</p>
+  </div>
+  <div class="col-visual" data-anim="slideR" data-delay="300"><img src="images/command_center.png" class="slide-img img-glow" alt="Workspaces"></div>
+</div></div>
+
+<!-- 17: Voice -->
+<div class="slide"><div class="full-layout" style="max-width:1100px;width:100%">
+  <div class="col-visual" data-anim="slideL" data-delay="200"><img src="images/context_system.png" class="slide-img img-glow" alt="Voice"></div>
+  <div class="col-text">
+    <div class="section-label" data-anim="fadeUp">Slide 17</div>
+    <h2 class="slide-title" data-anim="fadeUp" data-delay="100" style="font-size:clamp(1.8rem,3.5vw,3rem)">Live Voice Transcription</h2>
+    <p class="slide-subtitle" data-anim="fadeUp" data-delay="200">Users can interact with agents using natural speech.</p>
+    <h4 data-anim="fadeUp" data-delay="300" style="color:var(--cyan);margin:1.2rem 0 .4rem;font-size:.95rem">Features</h4>
+    <ul class="list" data-anim="fadeUp" data-delay="400">
+      <li>Real-time transcription</li>
+      <li>Conversational prompting</li>
+      <li>Faster interaction</li>
+      <li>Hands-free workflow support</li>
+    </ul>
+    <p data-anim="fadeUp" data-delay="500" style="color:var(--yellow);font-size:.88rem;margin-top:.8rem"><strong>Benefit:</strong> Improves accessibility and productivity.</p>
+  </div>
+</div></div>
+
+<!-- 18: Why it is important -->
+<div class="slide"><div class="full-layout" style="max-width:1100px;width:100%">
+  <div class="col-text">
+    <div class="section-label" data-anim="fadeUp">Slide 18</div>
+    <h2 class="slide-title" data-anim="fadeUp" data-delay="100" style="font-size:clamp(1.8rem,3.5vw,3rem)">Why Antigravity 2.0 is Important</h2>
+    <h4 data-anim="fadeUp" data-delay="200" style="color:var(--cyan);margin:1.2rem 0 .4rem;font-size:.95rem">Major Advantages</h4>
+    <ul class="list" data-anim="fadeUp" data-delay="300">
+      <li>AI-first workflow orchestration</li>
+      <li>Parallel agent execution</li>
+      <li>High customization capability</li>
+      <li>Powerful automation ecosystem</li>
+      <li>Scalable AI operations</li>
+    </ul>
+    <h4 data-anim="fadeUp" data-delay="400" style="color:var(--violet);margin:1.2rem 0 .4rem;font-size:.95rem">Impact</h4>
+    <p data-anim="fadeUp" data-delay="500" style="color:var(--text);font-size:1.1rem;font-weight:500;margin-top:1rem;line-height:1.5;border-left:3px solid var(--pink);padding-left:1rem">Antigravity 2.0 transforms AI from a simple assistant into a coordinated autonomous workforce.</p>
+  </div>
+  <div class="col-visual" data-anim="slideR" data-delay="300"><img src="images/ai_agents.png" class="slide-img img-glow" alt="Impact"></div>
+</div></div>
+
+<!-- 19: vs IDE -->
+<div class="slide"><div class="full-layout" style="max-width:1100px;width:100%">
+  <div class="col-text">
+    <div class="section-label" data-anim="fadeUp">Slide 19</div>
+    <h2 class="slide-title" data-anim="fadeUp" data-delay="100" style="font-size:clamp(1.8rem,3vw,3rem)">vs Antigravity IDE</h2>
+    <div class="glass" data-anim="fadeUp" data-delay="200" style="padding:1.2rem;margin-bottom:1.5rem">
+      <table class="cmp-table">
+        <thead><tr><th>Antigravity IDE</th><th>Antigravity 2.0</th></tr></thead>
+        <tbody>
+          <tr><td>AI-assisted development</td><td class="cmp-win">Autonomous AI orchestration</td></tr>
+          <tr><td>Single workflow execution</td><td class="cmp-win">Parallel multi-agent execution</td></tr>
+          <tr><td>IDE-centered experience</td><td class="cmp-win">Agent-centered ecosystem</td></tr>
+          <tr><td>Limited extensibility</td><td class="cmp-win">Extensive MCP, Skills, Plugins</td></tr>
+          <tr><td>Assistant-style interaction</td><td class="cmp-win">Autonomous execution environment</td></tr>
+          <tr><td>Developer productivity tool</td><td class="cmp-win">Full AI operations platform</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p data-anim="fadeUp" data-delay="300" style="font-size:.85rem;color:var(--muted)"><strong>Use IDE when:</strong> Writing manually, small projects, traditional workflow.<br><strong>Use 2.0 when:</strong> Managing agents, autonomous workflows, complex operations.</p>
+  </div>
+  <div class="col-visual" data-anim="slideR" data-delay="300"><img src="images/comparison_visual.png" class="slide-img img-glow" alt="vs IDE"></div>
+</div></div>
+
+<!-- 20: vs Claude Code -->
+<div class="slide"><div class="full-layout" style="max-width:1100px;width:100%">
+  <div class="col-visual" data-anim="slideL" data-delay="200"><img src="images/comparison_visual.png" class="slide-img img-glow" alt="vs Claude Code"></div>
+  <div class="col-text">
+    <div class="section-label" data-anim="fadeUp">Slide 20</div>
+    <h2 class="slide-title" data-anim="fadeUp" data-delay="100" style="font-size:clamp(1.8rem,3vw,3rem)">vs Claude Code</h2>
+    <div class="glass" data-anim="fadeUp" data-delay="200" style="padding:1.2rem;margin-bottom:1.5rem">
+      <table class="cmp-table">
+        <thead><tr><th>Claude Code</th><th>Antigravity 2.0</th></tr></thead>
+        <tbody>
+          <tr><td>Primarily coding-focused</td><td class="cmp-win">Multi-domain AI orchestration</td></tr>
+          <tr><td>Single assistant workflow</td><td class="cmp-win">Multi-agent parallel workflows</td></tr>
+          <tr><td>Limited external orchestration</td><td class="cmp-win">Strong MCP ecosystem</td></tr>
+          <tr><td>Mainly prompt-driven</td><td class="cmp-win">Structured execution system</td></tr>
+          <tr><td>Focused on developer interaction</td><td class="cmp-win">Focused on autonomous operations</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p data-anim="fadeUp" data-delay="300" style="font-size:.85rem;color:var(--muted)"><strong>Claude:</strong> Fast code assistance, interactive pairing.<br><strong>Antigravity 2.0:</strong> Running AI teams, multi-tool automation, scalable systems.</p>
+  </div>
+</div></div>
+
+<!-- 21: vs OpenCode -->
+<div class="slide"><div class="full-layout" style="max-width:1100px;width:100%">
+  <div class="col-text">
+    <div class="section-label" data-anim="fadeUp">Slide 21</div>
+    <h2 class="slide-title" data-anim="fadeUp" data-delay="100" style="font-size:clamp(1.8rem,3vw,3rem)">vs OpenCode</h2>
+    <div class="glass" data-anim="fadeUp" data-delay="200" style="padding:1.2rem;margin-bottom:1.5rem">
+      <table class="cmp-table">
+        <thead><tr><th>OpenCode</th><th>Antigravity 2.0</th></tr></thead>
+        <tbody>
+          <tr><td>Open-source coding env</td><td class="cmp-win">Autonomous AI ops platform</td></tr>
+          <tr><td>Mostly developer-centric</td><td class="cmp-win">Agent-centric architecture</td></tr>
+          <tr><td>Manual workflow dependency</td><td class="cmp-win">Automated orchestration</td></tr>
+          <tr><td>Limited native agent mgmt</td><td class="cmp-win">Advanced multi-agent system</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p data-anim="fadeUp" data-delay="300" style="font-size:.85rem;color:var(--muted)"><strong>OpenCode:</strong> Custom open-source dev, lightweight environments.<br><strong>Antigravity 2.0:</strong> Built-in orchestration, parallel workflows, enterprise ops.</p>
+  </div>
+  <div class="col-visual" data-anim="slideR" data-delay="300"><img src="images/comparison_visual.png" class="slide-img img-glow" alt="vs OpenCode"></div>
+</div></div>
+
+<!-- 22: vs OpenClaw -->
+<div class="slide"><div class="full-layout" style="max-width:1100px;width:100%">
+  <div class="col-visual" data-anim="slideL" data-delay="200"><img src="images/comparison_visual.png" class="slide-img img-glow" alt="vs OpenClaw"></div>
+  <div class="col-text">
+    <div class="section-label" data-anim="fadeUp">Slide 22</div>
+    <h2 class="slide-title" data-anim="fadeUp" data-delay="100" style="font-size:clamp(1.8rem,3vw,3rem)">vs OpenClaw</h2>
+    <div class="glass" data-anim="fadeUp" data-delay="200" style="padding:1.2rem;margin-bottom:1.5rem">
+      <table class="cmp-table">
+        <thead><tr><th>OpenClaw</th><th>Antigravity 2.0</th></tr></thead>
+        <tbody>
+          <tr><td>AI coding assistant framework</td><td class="cmp-win">Complete autonomous platform</td></tr>
+          <tr><td>Mainly coding-oriented</td><td class="cmp-win">Supports broader AI workflows</td></tr>
+          <tr><td>Community-driven custom</td><td class="cmp-win">Structured enterprise orchestration</td></tr>
+          <tr><td>Limited orchestration</td><td class="cmp-win">Advanced agent coordination</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p data-anim="fadeUp" data-delay="300" style="font-size:.85rem;color:var(--muted)"><strong>OpenClaw:</strong> Research experimentation, prototype systems.<br><strong>Antigravity 2.0:</strong> Production operations, coordinated multi-agents, workflow scaling.</p>
+  </div>
+</div></div>
+
+<!-- 23: Conclusion -->
+<div class="slide"><div class="full-layout" style="max-width:1100px;width:100%">
+  <div class="col-visual" data-anim="slideL" data-delay="200"><img src="images/platform_intro.png" class="slide-img img-glow" alt="Conclusion"></div>
+  <div class="col-text">
+    <div class="section-label" data-anim="fadeUp">Slide 23</div>
+    <h2 class="slide-title" data-anim="fadeUp" data-delay="100" style="font-size:clamp(1.8rem,3.5vw,3rem)">Conclusion</h2>
+    <h4 data-anim="fadeUp" data-delay="200" style="color:var(--cyan);margin:1.2rem 0 .4rem;font-size:.95rem">Final Summary</h4>
+    <p class="slide-subtitle" data-anim="fadeUp" data-delay="300">Antigravity 2.0 is:</p>
+    <ul class="list" data-anim="fadeUp" data-delay="400">
+      <li>A standalone AI agent platform</li>
+      <li>Built for orchestration and automation</li>
+      <li>Extensible through MCPs, Skills, Plugins, and Hooks</li>
+      <li>Designed for scalable autonomous workflows</li>
+    </ul>
+    <blockquote data-anim="fadeUp" data-delay="500" class="quote-text gradient-text" style="font-size:1.4rem;text-align:left;margin-top:2rem">“Antigravity 2.0 represents the shift from AI assistance to AI execution.”</blockquote>
+  </div>
+</div></div>
+
+<!-- 24: Antigravity CLI -->
+<div class="slide"><div class="full-layout" style="max-width:1100px;width:100%">
+  <div class="col-text">
+    <div class="section-label" data-anim="fadeUp">Slide 24</div>
+    <h2 class="slide-title" data-anim="fadeUp" data-delay="100" style="font-size:clamp(1.8rem,3.5vw,3rem)">Antigravity CLI</h2>
+    <p class="slide-subtitle" data-anim="fadeUp" data-delay="200">The command-line interface for interacting directly from the terminal.</p>
+    <h4 data-anim="fadeUp" data-delay="300" style="color:var(--cyan);margin:1.2rem 0 .4rem;font-size:.95rem">Key Features</h4>
+    <ul class="list" data-anim="fadeUp" data-delay="400">
+      <li>Launch and manage AI agents</li>
+      <li>Execute workflows using commands</li>
+      <li>Integrate Skills, Plugins, and MCPs</li>
+      <li>Automate development operations</li>
+    </ul>
+    <h4 data-anim="fadeUp" data-delay="500" style="color:var(--violet);margin:1.2rem 0 .4rem;font-size:.95rem">Advantages</h4>
+    <p data-anim="fadeUp" data-delay="600" style="color:var(--muted);font-size:.88rem">Lightweight &amp; efficient · Developer-friendly · Quick execution<br><strong style="color:var(--yellow);margin-top:.5rem;display:block">Importance:</strong> Orchestrate systems without graphical interfaces.</p>
+  </div>
+  <div class="col-visual" style="position: relative;" data-anim="slideR" data-delay="300">
+    <div id="videoBackdrop" class="video-backdrop"></div>
+    <video id="cliVideo" class="slide-video img-glow" src="videos/FIRST LOOK into Google Antigravity CLI(4K_HD) (1).webm" title="Antigravity CLI Video" muted loop></video>
+    <script>
+    (function() {
+      const video = document.getElementById('cliVideo');
+      const backdrop = document.getElementById('videoBackdrop');
+      let isZoomed = false;
+
+      video.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const slide = this.closest('.slide');
+        
+        if(!isZoomed) {
+          // Get current dimensions and position before transition
+          const rect = this.getBoundingClientRect();
+          const vw = window.innerWidth;
+          const vh = window.innerHeight;
+          
+          // Calculate target translation & scale (fit screen contain)
+          const videoRatio = rect.width / rect.height;
+          const viewRatio = vw / vh;
+          let targetW, targetH;
+          
+          if (videoRatio > viewRatio) {
+            targetW = vw;
+            targetH = vw / videoRatio;
+          } else {
+            targetH = vh;
+            targetW = vh * videoRatio;
+          }
+          
+          const scale = targetW / rect.width;
+          const tx = (vw / 2) - (rect.left + rect.width / 2);
+          const ty = (vh / 2) - (rect.top + rect.height / 2);
+          
+          // Clear transforms so backdrop is relative to viewport
+          const parent = this.parentElement;
+          parent.style.transform = 'none';
+          slide.style.transform = 'none';
+          slide.style.willChange = 'auto';
+          
+          // Apply changes to slide to bring it to foreground
+          slide.style.zIndex = '99999';
+          slide.style.overflow = 'visible';
+          
+          // Apply styles on video
+          this.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
+          this.classList.add('zoomed');
+          
+          // Show backdrop
+          backdrop.classList.add('active');
+          
+          this.muted = false;
+          this.controls = true;
+          this.play();
+          isZoomed = true;
+        } else {
+          // Shrink back
+          this.style.transform = '';
+          this.classList.remove('zoomed');
+          
+          backdrop.classList.remove('active');
+          
+          this.muted = true;
+          this.controls = false;
+          this.pause();
+          isZoomed = false;
+          
+          // Wait for transition to complete before resetting zIndex and parent transforms
+          setTimeout(() => {
+            if(!isZoomed) {
+              slide.style.zIndex = '';
+              slide.style.overflow = '';
+              const parent = video.parentElement;
+              parent.style.transform = '';
+              slide.style.transform = '';
+              slide.style.willChange = '';
+            }
+          }, 600);
+        }
+      });
+      
+      // Also close when clicking the backdrop
+      backdrop.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if(isZoomed) {
+          video.click();
+        }
+      });
+    })();
+    </script>
+  </div>
+</div></div>
+
+
+</div>
+
+<script src="streams.js"></script>
+<script>
+(function(){var n=document.querySelectorAll('.slide').length,c=document.getElementById('navDots');for(var i=0;i<n;i++){var d=document.createElement('button');d.className='nav-dot';c.appendChild(d)}})();
+</script>
+<script src="presentation.js"></script>
+</body>
+</html>

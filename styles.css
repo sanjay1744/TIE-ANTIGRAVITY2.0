@@ -235,3 +235,65 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);fon
 
 /* scrollbar */
 ::-webkit-scrollbar{width:0;height:0}
+
+/* ═══ FLOATING BACKGROUND LOGO ═══ */
+.bg-logo-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 480px;
+  height: 480px;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.08;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: floatBg 16s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+.bg-logo-svg {
+  width: 100%;
+  height: 100%;
+}
+@keyframes floatBg {
+  0% { transform: translate(-50%, -50%) translateY(0) rotate(0deg); }
+  25% { transform: translate(-50%, -50%) translateY(-15px) rotate(1deg); }
+  50% { transform: translate(-50%, -50%) translateY(0) rotate(0deg); }
+  75% { transform: translate(-50%, -50%) translateY(15px) rotate(-1deg); }
+  100% { transform: translate(-50%, -50%) translateY(0) rotate(0deg); }
+}
+.bg-logo-svg .orbit-rings {
+  transform-origin: 100px 100px;
+  animation: rotateOrbits 45s linear infinite;
+}
+@keyframes rotateOrbits {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.bg-logo-svg .logo-core {
+  transform-origin: 100px 100px;
+  animation: pulseCore 8s ease-in-out infinite;
+}
+@keyframes pulseCore {
+  0%, 100% { filter: drop-shadow(0 0 5px rgba(139, 92, 246, 0.3)) url(#neon-glow); }
+  50% { filter: drop-shadow(0 0 20px rgba(139, 92, 246, 0.6)) url(#neon-glow); }
+}
+.bg-logo-svg .logo-text {
+  opacity: 0.8;
+  animation: pulseText 8s ease-in-out infinite;
+}
+@keyframes pulseText {
+  0%, 100% { opacity: 0.6; fill: var(--dim); }
+  50% { opacity: 0.9; fill: var(--muted); }
+}
+
+@media(max-width: 768px) {
+  .bg-logo-container {
+    width: 280px;
+    height: 280px;
+  }
+}
+
+

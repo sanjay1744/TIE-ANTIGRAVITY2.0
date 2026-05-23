@@ -36,11 +36,22 @@
       let cur=0;const step=Math.max(1,Math.floor(num/40));
       const iv=setInterval(()=>{cur+=step;if(cur>=num){cur=num;clearInterval(iv)}c.textContent=cur+(c.dataset.suffix||'')},30);
     });
+    // Play full-screen video if present
+    const fsVideo=slide.querySelector('.full-screen-video');
+    if(fsVideo){
+      fsVideo.play().catch(e=>console.log("Autoplay prevented:",e));
+    }
   }
 
   function resetAnimations(slide){
     slide.querySelectorAll('[data-anim]').forEach(el=>el.classList.remove('visible'));
     slide.querySelectorAll('.terminal-line').forEach(l=>l.classList.remove('typed'));
+    // Pause and reset full-screen video if present
+    const fsVideo=slide.querySelector('.full-screen-video');
+    if(fsVideo){
+      fsVideo.pause();
+      fsVideo.currentTime=0;
+    }
   }
 
   function goTo(index){
@@ -56,7 +67,7 @@
 
     // Enter next
     to.classList.add('active','enter-'+tr);
-    updateUI();current=index;
+    current=index;updateUI();
     triggerAnimations(to);
 
     const dur=parseInt(getComputedStyle(document.documentElement).getPropertyValue('--transition-speed'))||600;

@@ -50,18 +50,6 @@
     ctx.stroke();ctx.restore();
   }
 
-  function sparkle(){
-    const s=streams[Math.random()*total|0];
-    const sx=s.offset+Math.random()*80-40;
-    const sy=canvas.height*s.yFrac+(Math.random()-.5)*60;
-    const r=2+Math.random()*3;
-    const g=ctx.createRadialGradient(sx,sy,0,sx,sy,r*4);
-    g.addColorStop(0,'rgba(255,255,255,.9)');
-    g.addColorStop(.4,'rgba(255,255,255,.3)');
-    g.addColorStop(1,'rgba(255,255,255,0)');
-    ctx.fillStyle=g;ctx.beginPath();ctx.arc(sx,sy,r*4,0,Math.PI*2);ctx.fill();
-  }
-
   function loop(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
     streams.forEach(s=>{
@@ -69,7 +57,6 @@
       if(s.offset>canvas.width+400)s.offset=-ribbonLen;
       drawStream(s);
     });
-    if(Math.random()<.08)sparkle();
     t++;requestAnimationFrame(loop);
   }
   loop();

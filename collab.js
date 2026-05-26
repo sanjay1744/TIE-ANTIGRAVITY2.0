@@ -166,6 +166,12 @@
             syncBtn.className='collab-sync-btn unsynced';
           }
           break;
+        case 'chat':
+          addChatMessage(msg);
+          break;
+        case 'chat_history':
+          msg.messages.forEach(addChatMessage);
+          break;
         case 'error':
           showToast(msg.message);
           break;
@@ -196,4 +202,97 @@
       syncBtn.className='collab-sync-btn unsynced';
     }
   });
+
+  // ---- Chat ----
+  var chatToggle=document.getElementById('chatToggle');
+  var chatPanel=document.getElementById('chatPanel');
+  var chatClose=document.getElementById('chatClose');
+  var chatMessages=document.getElementById('chatMessages');
+  var chatEmpty=document.getElementById('chatEmpty');
+  var chatFormat='text';
+
+  if(chatToggle){
+    chatToggle.addEventListener('click',function(){
+      chatPanel.classList.add('open');
+      chatToggle.style.display='none';
+    });
+  }
+  if(chatClose){
+    chatClose.addEventListener('click',function(){
+      chatPanel.classList.remove('open');
+      chatToggle.style.display='';
+    });
+  }
+
+  // Build presenter input area
+  if(role==='presenter'){
+    var inputArea=document.createElement('div');
+    inputArea.className='chat-input-area';
+    inputArea.innerHTML='<div class="chat-format-toggle">'
+      +'<button class="chat-format-btn active" data-format="text">Text</button>'
+      +'<button class="chat-format-btn" data-format="code">Code</button>'
+      +'</div>'
+      +'<div class="chat-input-row">'
+      +'<textarea class="chat-input" id="chatInput" placeholder="Type a message..." rows="1"></textarea>'
+      +'<button class="chat-send" id="chatSend">Send</button>'
+      +'</div>';
+    chatPanel.appendChild(inputArea);
+
+    var fmtBtns=inputArea.querySelectorAll('.chat-format-btn');
+    fmtBtns.forEach(function(btn){
+      btn.addEventListener('click',function(){
+        fmtBtns.forEach(function(b){b.classList.remove('active')});
+        btn.classList.add('active');
+        chatFormat=btn.dataset.format;
+      });
+    });
+
+    var chatInput=document.getElementById('chatInput');
+    var chatSendBtn=document.getElementById('chatSend');
+
+    chatSendBtn.addEventListener('click',sendChat);
+    chatInput.addEventListener('keydown',function(e){
+      if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendChat();}
+    });
+  }
+
+  function sendChat(){
+    var chatInput=document.getElementById('chatInput');
+    if(!chatInput)return;
+    var text=chatInput.value.trim();
+    if(!text)return;
+    send({type:'chat',text:text,format:chatFormat});
+    chatInput.value='';
+    chatInput.style.height='auto';
+  }
+
+  function addChatMessage(msg){
+    if(chatEmpty)chatEmpty.style.display='none';
+    var div=document.createElement('div');
+
+    if(msg.format==='code'){
+      div.className='chat-msg-code';
+      div.innerHTML='<div class="chat-msg-code-bar">'
+        +'<div class="chat-msg-code-dots"><span></span><span></span><span></span></div>'
+        +'<button class="chat-copy-btn" data-id="'+msg.id+'">Copy</button>'
+        +'</div>'
+        +'<div class="chat-msg-code-body"></div>';
+      div.querySelector('.chat-msg-code-body').textContent=msg.text;
+      div.querySelector('.chat-copy-btn').addEventListener('click',function(){
+        var btn=this;
+        navigator.clipboard.writeText(msg.text).then(function(){
+          btn.textContent='Copied!';
+          btn.classList.add('copied');
+          setTimeout(function(){btn.textContent='Copy';btn.classList.remove('copied');},1500);
+        });
+      });
+    }else{
+      div.className='chat-msg';
+      div.innerHTML='<div class="chat-msg-sender">Presenter</div><div class="chat-msg-text"></div>';
+      div.querySelector('.chat-msg-text').textContent=msg.text;
+    }
+
+    chatMessages.appendChild(div);
+    chatMessages.scrollTop=chatMessages.scrollHeight;
+  }
 })();

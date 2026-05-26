@@ -83,6 +83,7 @@
   // Wheel
   let wheelTimer=0;
   window.addEventListener('wheel',(e)=>{
+    if(e.target.closest('.chat-panel'))return;
     e.preventDefault();
     const now=Date.now();
     if(now-wheelTimer<800)return;
@@ -100,6 +101,8 @@
 
   // Keyboard
   window.addEventListener('keydown',e=>{
+    var tag=e.target.tagName;
+    if(tag==='INPUT'||tag==='TEXTAREA'||e.target.closest('.chat-panel'))return;
     if(e.key==='ArrowDown'||e.key==='ArrowRight'||e.key===' '){e.preventDefault();goTo(current+1)}
     else if(e.key==='ArrowUp'||e.key==='ArrowLeft'){e.preventDefault();goTo(current-1)}
     else if(e.key==='f'||e.key==='F'){toggleFS()}

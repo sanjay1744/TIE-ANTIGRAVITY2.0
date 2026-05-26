@@ -2,19 +2,40 @@ const express = require('express');
 const http = require('http');
 const { WebSocketServer } = require('ws');
 const path = require('path');
+const fs = require('fs');
 require('dotenv').config();
 
 const PRESENTER_KEY = process.env.PRESENTER_KEY;
 
 const app = express();
 const server = http.createServer(app);
-const wss = new WebSocketServer({ server, path: '/ws' });
+const wss = new WebSocketServer({ server, path: '/ws', clientTracking: true });
 
 app.use(express.static(path.join(__dirname)));
 
 let presenterSocket = null;
 const viewerSockets = new Set();
 let currentSlide = 0;
+let chatId = 0;
+const chatLog = [];
+
+// Load chat history from file
+const CHAT_FILE = path.join(__dirname, 'chat.json');
+try {
+  const saved = JSON.parse(fs.readFileSync(CHAT_FILE, 'utf8'));
+  if (Array.isArray(saved)) { saved.forEach(m => chatLog.push(m)); }
+  if (chatLog.length) chatId = chatLog[chatLog.length - 1].id;
+} catch {}
+
+function saveChat() {
+  fs.writeFileSync(CHAT_FILE, JSON.stringify(chatLog, null, 2));
+}
+
+const HEARTBEAT = 60000;
+
+function heartbeat() {
+  this._alive = true;
+}
 
 function broadcastViewers(message) {
   const data = JSON.stringify(message);
@@ -32,6 +53,9 @@ function broadcastAll(message) {
 }
 
 wss.on('connection', (ws) => {
+  ws._alive = true;
+  ws.on('pong', heartbeat);
+
   ws.on('message', (raw) => {
     let msg;
     try { msg = JSON.parse(raw); } catch { return; }
@@ -49,6 +73,7 @@ wss.on('connection', (ws) => {
           ws._role = 'presenter';
           ws.send(JSON.stringify({ type: 'role_confirm', role: 'presenter' }));
           ws.send(JSON.stringify({ type: 'sync', index: currentSlide }));
+          chatLog.forEach(m => ws.send(JSON.stringify({ type: 'chat_history', messages: [m] })));
           broadcastAll({ type: 'viewer_count', count: viewerSockets.size });
           return;
         }
@@ -59,6 +84,7 @@ wss.on('connection', (ws) => {
         ws._role = 'viewer';
         ws.send(JSON.stringify({ type: 'role_confirm', role: 'viewer' }));
         ws.send(JSON.stringify({ type: 'sync', index: currentSlide }));
+        chatLog.forEach(m => ws.send(JSON.stringify({ type: 'chat_history', messages: [m] })));
         broadcastAll({ type: 'viewer_count', count: viewerSockets.size });
       }
     }
@@ -71,6 +97,14 @@ wss.on('connection', (ws) => {
 
     if (msg.type === 'video_action' && ws === presenterSocket) {
       broadcastViewers(msg);
+    }
+
+    if (msg.type === 'chat' && ws === presenterSocket) {
+      const id = ++chatId;
+      const chatMsg = { type: 'chat', text: String(msg.text).slice(0, 5000), format: msg.format === 'code' ? 'code' : 'text', id };
+      chatLog.push(chatMsg);
+      saveChat();
+      broadcastAll(chatMsg);
     }
   });
 
@@ -85,6 +119,16 @@ wss.on('connection', (ws) => {
     }
   });
 });
+
+const pingInterval = setInterval(() => {
+  wss.clients.forEach((ws) => {
+    if (!ws._alive) return ws.terminate();
+    ws._alive = false;
+    ws.ping();
+  });
+}, HEARTBEAT);
+
+wss.on('close', () => clearInterval(pingInterval));
 
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {

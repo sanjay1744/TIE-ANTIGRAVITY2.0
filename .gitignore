@@ -2,6 +2,7 @@ videos
 node_modules
 .vscode
 .env
+chat.json
 package-lock.json
 *.cjs
 update_html.py

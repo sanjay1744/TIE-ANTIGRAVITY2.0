@@ -1,0 +1,154 @@
+/* Collaboration UI Styles */
+.collab-status {
+  position: fixed;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.collab-role {
+  position: fixed;
+  top: 1.8rem;
+  right: 5.5rem;
+  padding: 0.35rem 0.9rem;
+  border-radius: 14px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  font-family: 'JetBrains Mono', monospace;
+}
+.collab-role.presenter {
+  background: rgba(5, 150, 105, 0.15);
+  color: var(--green);
+  border-color: rgba(5, 150, 105, 0.25);
+}
+.collab-role.viewer {
+  background: rgba(8, 145, 178, 0.15);
+  color: var(--cyan);
+  border-color: rgba(8, 145, 178, 0.25);
+}
+
+/* Sync/Unsync toggle button */
+.collab-sync-btn {
+  position: fixed;
+  bottom: 3rem;
+  right: 2rem;
+  padding: 0.4rem 1rem;
+  border-radius: 14px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  border: 1px solid;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.collab-sync-btn::before {
+  content: '';
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+.collab-sync-btn.synced {
+  background: rgba(5, 150, 105, 0.12);
+  color: var(--green);
+  border-color: rgba(5, 150, 105, 0.25);
+}
+.collab-sync-btn.synced::before {
+  background: var(--green);
+  box-shadow: 0 0 6px var(--green);
+}
+.collab-sync-btn.synced:hover {
+  background: rgba(5, 150, 105, 0.22);
+}
+.collab-sync-btn.unsynced {
+  background: rgba(217, 119, 6, 0.12);
+  color: var(--yellow);
+  border-color: rgba(217, 119, 6, 0.25);
+}
+.collab-sync-btn.unsynced::before {
+  background: var(--yellow);
+  box-shadow: 0 0 6px var(--yellow);
+}
+.collab-sync-btn.unsynced:hover {
+  background: rgba(217, 119, 6, 0.22);
+}
+
+/* Viewer count */
+.collab-viewers {
+  position: fixed;
+  top: 1.8rem;
+  right: 5.5rem;
+  padding: 0.35rem 0.9rem;
+  border-radius: 14px;
+  font-size: 0.7rem;
+  font-family: 'JetBrains Mono', monospace;
+  background: rgba(255, 255, 255, 0.5);
+  color: var(--muted);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  display: none;
+}
+
+/* Sync toast notification */
+.sync-toast {
+  position: fixed;
+  bottom: 5rem;
+  right: 2rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 12px;
+  background: var(--glass);
+  color: var(--text);
+  font-size: 0.8rem;
+  font-family: 'JetBrains Mono', monospace;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-left: 3px solid var(--cyan);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  z-index: 200;
+  animation: toastIn 0.35s ease, toastOut 0.35s ease 1.8s forwards;
+}
+
+@keyframes toastIn {
+  from { opacity: 0; transform: translateX(40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes toastOut {
+  from { opacity: 1; transform: translateX(0); }
+  to { opacity: 0; transform: translateX(40px); }
+}
+
+/* Presenter offline indicator */
+.presenter-offline {
+  position: fixed;
+  bottom: 3rem;
+  right: 2rem;
+  padding: 0.4rem 1rem;
+  border-radius: 14px;
+  font-size: 0.7rem;
+  font-family: 'JetBrains Mono', monospace;
+  background: rgba(220, 38, 38, 0.1);
+  color: var(--red);
+  border: 1px solid rgba(220, 38, 38, 0.2);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+@media (max-width: 640px) {
+  .collab-role { top: 1rem; right: 1rem; font-size: 0.6rem; }
+  .collab-sync-btn { bottom: 2rem; right: 1rem; font-size: 0.65rem; }
+  .collab-viewers { top: 1rem; right: 1rem; font-size: 0.6rem; }
+}

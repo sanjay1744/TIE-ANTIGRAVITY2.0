@@ -54,7 +54,7 @@
     }
   }
 
-  function goTo(index){
+  function goTo(index,options){
     if(transitioning||index===current||index<0||index>=total)return;
     transitioning=true;
     const from=slides[current],to=slides[index];
@@ -68,6 +68,7 @@
     // Enter next
     to.classList.add('active','enter-'+tr);
     current=index;updateUI();
+    window.dispatchEvent(new CustomEvent('slideChange',{detail:{index:index,remote:!!(options&&options.remote)}}));
     triggerAnimations(to);
 
     const dur=parseInt(getComputedStyle(document.documentElement).getPropertyValue('--transition-speed'))||600;
@@ -131,4 +132,11 @@
   slides[0].classList.add('active');
   updateUI();
   setTimeout(()=>triggerAnimations(slides[0]),300);
+
+  // Expose API for collaboration module
+  window.Presentation={
+    goTo:goTo,
+    getCurrent:function(){return current},
+    isTransitioning:function(){return transitioning}
+  };
 })();

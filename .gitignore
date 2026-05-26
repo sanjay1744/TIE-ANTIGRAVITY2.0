@@ -1,0 +1,11 @@
+node_modules
+.vscode
+package-lock.json
+*.cjs
+update_html.py
+Presentation Antigravity 2.0.txt
+fix_alignments.cjs
+update_html.cjs
+update_html2.cjs
+update_sdk.cjs
+update_slides.cjs

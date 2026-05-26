@@ -1,6 +1,7 @@
 (function(){
   var params=new URLSearchParams(window.location.search);
   var role=params.has('presenter')?'presenter':'viewer';
+  var presenterKey=params.get('key')||'';
   var ws=null;
   var isSynced=true;
   var lastSyncIndex=0;
@@ -132,7 +133,7 @@
     ws=new WebSocket(url);
 
     ws.onopen=function(){
-      ws.send(JSON.stringify({type:'join',role:role}));
+      ws.send(JSON.stringify({type:'join',role:role,key:presenterKey}));
       reconnectDelay=1000;
     };
 

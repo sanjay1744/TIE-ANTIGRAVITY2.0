@@ -2,6 +2,9 @@ const express = require('express');
 const http = require('http');
 const { WebSocketServer } = require('ws');
 const path = require('path');
+require('dotenv').config();
+
+const PRESENTER_KEY = process.env.PRESENTER_KEY;
 
 const app = express();
 const server = http.createServer(app);
@@ -35,7 +38,10 @@ wss.on('connection', (ws) => {
 
     if (msg.type === 'join') {
       if (msg.role === 'presenter') {
-        if (presenterSocket && presenterSocket.readyState === 1) {
+        if (!msg.key || msg.key !== PRESENTER_KEY) {
+          ws.send(JSON.stringify({ type: 'error', message: 'Invalid presenter key. Connected as viewer.' }));
+          msg.role = 'viewer';
+        } else if (presenterSocket && presenterSocket.readyState === 1) {
           ws.send(JSON.stringify({ type: 'error', message: 'A presenter is already connected. Connecting as viewer.' }));
           msg.role = 'viewer';
         } else {

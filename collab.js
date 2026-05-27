@@ -8,6 +8,10 @@
   var reconnectDelay=1000;
   var _remoteAction=false;
 
+  window.__isPresenter=(role==='presenter');
+
+  var viewerZoomState={};
+
   // UI refs
   var roleEl=document.getElementById('collabRole');
   var syncBtn=document.getElementById('collabSyncBtn');
@@ -89,6 +93,22 @@
     return document.getElementById(id);
   }
 
+  var allVideoIds=['screenVideo','collabVideo','cliVideo'];
+
+  function enforceViewerMute(){
+    if(role==='presenter')return;
+    allVideoIds.forEach(function(id){
+      var v=getVideo(id);
+      if(!v)return;
+      v.muted=true;
+      v.removeAttribute('controls');
+    });
+  }
+
+  enforceViewerMute();
+
+  setInterval(enforceViewerMute,2000);
+
   // Presenter: listen to native video events and forward
   function setupVideoSend(){
     var videoIds=['screenVideo','collabVideo','cliVideo'];
@@ -129,6 +149,7 @@
 
     if(msg.action==='play'){
       v.play().catch(function(){});
+      enforceViewerMute();
     }else if(msg.action==='pause'){
       v.pause();
     }else if(msg.action==='seek'){
@@ -136,9 +157,53 @@
     }else if(msg.action==='zoom'||msg.action==='unzoom'){
       var isZoomed=v.classList.contains('zoomed');
       if(msg.action==='zoom'&&!isZoomed){
-        v.click();
+        var slide=v.closest('.slide');
+        var backdrop=slide?slide.querySelector('.video-backdrop'):null;
+        var rect=v.getBoundingClientRect();
+        var vw=window.innerWidth;
+        var vh=window.innerHeight;
+        var videoRatio=rect.width/rect.height;
+        var viewRatio=vw/vh;
+        var targetW,targetH;
+        if(videoRatio>viewRatio){targetW=vw;targetH=vw/videoRatio}else{targetH=vh;targetW=vh*videoRatio}
+        var scale=targetW/rect.width;
+        var tx=(vw/2)-(rect.left+rect.width/2);
+        var ty=(vh/2)-(rect.top+rect.height/2);
+        var parent=v.parentElement;
+        if(parent)parent.style.transform='none';
+        if(slide){
+          slide.style.transform='none';
+          slide.style.willChange='auto';
+          slide.style.zIndex='99999';
+          slide.style.overflow='visible';
+        }
+        v.style.transform='translate('+tx+'px,'+ty+'px) scale('+scale+')';
+        v.classList.add('zoomed');
+        if(backdrop)backdrop.classList.add('active');
+        v.play().catch(function(){});
+        enforceViewerMute();
+        viewerZoomState[msg.videoId]=true;
       }else if(msg.action==='unzoom'&&isZoomed){
-        v.click();
+        var slide=v.closest('.slide');
+        var backdrop=slide?slide.querySelector('.video-backdrop'):null;
+        v.style.transform='';
+        v.classList.remove('zoomed');
+        if(backdrop)backdrop.classList.remove('active');
+        v.pause();
+        enforceViewerMute();
+        viewerZoomState[msg.videoId]=false;
+        setTimeout(function(){
+          if(!v.classList.contains('zoomed')){
+            if(slide){
+              slide.style.zIndex='';
+              slide.style.overflow='';
+              slide.style.transform='';
+              slide.style.willChange='';
+            }
+            var parent=v.parentElement;
+            if(parent)parent.style.transform='';
+          }
+        },600);
       }
     }
 

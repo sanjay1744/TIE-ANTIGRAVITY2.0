@@ -38,7 +38,7 @@
     });
     // Play full-screen video if present
     const fsVideo=slide.querySelector('.full-screen-video');
-    if(fsVideo){
+    if(fsVideo&&window.__isPresenter){
       fsVideo.play().catch(e=>console.log("Autoplay prevented:",e));
     }
   }

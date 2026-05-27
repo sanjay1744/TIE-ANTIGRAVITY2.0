@@ -274,18 +274,22 @@
           this.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
           this.classList.add('zoomed');
           backdrop.classList.add('active');
-          this.muted = false;
-          this.controls = true;
-          this.play();
+          if(window.__isPresenter){
+            this.muted = false;
+            this.controls = true;
+            this.play();
+          }
           isZoomed = true;
           window.dispatchEvent(new CustomEvent('videoZoom',{detail:{videoId:'collabVideo',zoomed:true}}));
         } else {
           this.style.transform = '';
           this.classList.remove('zoomed');
           backdrop.classList.remove('active');
-          this.muted = true;
-          this.controls = false;
-          this.pause();
+          if(window.__isPresenter){
+            this.muted = true;
+            this.controls = false;
+            this.pause();
+          }
           isZoomed = false;
           window.dispatchEvent(new CustomEvent('videoZoom',{detail:{videoId:'collabVideo',zoomed:false}}));
           setTimeout(() => {
@@ -698,9 +702,11 @@
           // Show backdrop
           backdrop.classList.add('active');
 
-          this.muted = false;
-          this.controls = true;
-          this.play();
+          if(window.__isPresenter){
+            this.muted = false;
+            this.controls = true;
+            this.play();
+          }
           isZoomed = true;
           window.dispatchEvent(new CustomEvent('videoZoom',{detail:{videoId:'cliVideo',zoomed:true}}));
         } else {
@@ -710,9 +716,11 @@
 
           backdrop.classList.remove('active');
 
-          this.muted = true;
-          this.controls = false;
-          this.pause();
+          if(window.__isPresenter){
+            this.muted = true;
+            this.controls = false;
+            this.pause();
+          }
           isZoomed = false;
           window.dispatchEvent(new CustomEvent('videoZoom',{detail:{videoId:'cliVideo',zoomed:false}}));
           

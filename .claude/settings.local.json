@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(unzip -l \"C:/Users/Nepula/Downloads/TIE-ANTIGRAVITY2.0-version2.zip\")",
+      "Bash(grep -v \"^$\")",
+      "Bash(grep -iE \"\\\\.\\(jpg|jpeg|png|gif|svg|webp|ico|mp4|webm|mov|avi\\)$\")",
+      "Bash(unzip *)",
+      "Bash(grep -i \"\\\\.svg$\")"
+    ]
+  }
+}

@@ -12,6 +12,8 @@
   var roleEl=document.getElementById('collabRole');
   var syncBtn=document.getElementById('collabSyncBtn');
   var viewersEl=document.getElementById('collabViewers');
+  var controlBtn=document.getElementById('presenterControlBtn');
+  var isActivePresenter=false;
 
   // Init UI
   if(roleEl){
@@ -25,6 +27,26 @@
       syncBtn.textContent='Following';
       syncBtn.className='collab-sync-btn synced';
       syncBtn.addEventListener('click',toggleSync);
+    }
+  }
+  if(controlBtn){
+    if(role==='presenter'){
+      controlBtn.style.display='flex';
+      controlBtn.addEventListener('click',function(){
+        send({type:'claim_presenter'});
+      });
+    }
+  }
+
+  function setActivePresenterUI(active){
+    isActivePresenter=active;
+    if(!controlBtn)return;
+    if(active){
+      controlBtn.className='presenter-control-btn active';
+      controlBtn.innerHTML='<span class="control-dot"></span>Live';
+    }else{
+      controlBtn.className='presenter-control-btn';
+      controlBtn.innerHTML='Take Control';
     }
   }
 
@@ -75,20 +97,24 @@
       if(!v)return;
       v.addEventListener('play',function(){
         if(_remoteAction)return;
+        if(!isActivePresenter)return;
         send({type:'video_action',videoId:id,action:'play'});
       });
       v.addEventListener('pause',function(){
         if(_remoteAction)return;
+        if(!isActivePresenter)return;
         send({type:'video_action',videoId:id,action:'pause'});
       });
       v.addEventListener('seeked',function(){
         if(_remoteAction)return;
+        if(!isActivePresenter)return;
         send({type:'video_action',videoId:id,action:'seek',time:v.currentTime});
       });
     });
 
     // Listen for zoom events from inline scripts
     window.addEventListener('videoZoom',function(e){
+      if(!isActivePresenter)return;
       send({type:'video_action',videoId:e.detail.videoId,action:e.detail.zoomed?'zoom':'unzoom'});
     });
   }
@@ -166,6 +192,25 @@
             syncBtn.className='collab-sync-btn unsynced';
           }
           break;
+        case 'presenter_promoted':
+          if(role==='presenter'){
+            setActivePresenterUI(true);
+            showToast('You are now the active presenter');
+          }
+          break;
+        case 'presenter_demoted':
+          if(role==='presenter'){
+            setActivePresenterUI(false);
+            showToast('Another presenter took control');
+          }
+          break;
+        case 'presenter_status':
+          break;
+        case 'role_confirm':
+          if(msg.role==='presenter'&&msg.isActive){
+            setActivePresenterUI(true);
+          }
+          break;
         case 'chat':
           addChatMessage(msg);
           break;
@@ -195,7 +240,9 @@
   window.addEventListener('slideChange',function(e){
     if(e.detail.remote)return;
     if(role==='presenter'){
-      send({type:'slide_change',index:e.detail.index});
+      if(isActivePresenter){
+        send({type:'slide_change',index:e.detail.index});
+      }
     }else if(role==='viewer'&&isSynced){
       isSynced=false;
       syncBtn.textContent='Browsing';
